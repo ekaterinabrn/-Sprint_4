@@ -70,16 +70,12 @@ import java.time.Duration;
             tooButton.click();
             return this;
         }
-        // Метод прокрутки к нижней кнопке создания заказа
-        public MainPage scrollToButtonBody() {
-            ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(orderButtonBody));
-            return this;
-        }
+        //нажатие на кнопку заказа нижнюю с прокруткой
 
-        //нажатие на кнопку заказа нижнюю
-        public MainPage clickOrderButtonBody() {
-            WebElement ButtonBody = wait.until(ExpectedConditions.elementToBeClickable(orderButtonBody));
-            ButtonBody.click();
+        public MainPage clickOrderButtonBody(){
+            WebElement element = driver.findElement(orderButtonBody);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
+            driver.findElement(orderButtonBody).click();
             return this;
         }
 
