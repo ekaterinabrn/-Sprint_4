@@ -19,6 +19,9 @@ import java.time.Duration;
         private final By questionsHeader = By.className("Home_FourPart__1uthg");
         // Локатор кнопки с принятием Cookies
         private final By acceptCookie = By.id("rcc-confirm-button");
+        private final By topOrderButton = By.xpath(".//button[@class='Button_Button__ra12g' and text()='Заказать']");
+        //локатор нижней кнопки создания заказа
+        private final By orderButtonBody = By.xpath(".//button[@class='Button_Button__ra12g Button_UltraBig__UU3Lp']");
 
         // Локаторы ответов аккордеона
         private By answer1Locator = By.xpath("//div[@aria-labelledby='accordion__heading-0']");
@@ -60,6 +63,24 @@ import java.time.Duration;
             By questionLocator = By.xpath(String.format("//div[@id='accordion__heading-%d']", questionNumber - 1));
             WebElement question = wait.until(ExpectedConditions.visibilityOfElementLocated(questionLocator));
             return question.getText();
+        }
+        //нажатие на верхнюю заказа в шапке
+        public MainPage clickOrderButtonHeader() {
+            WebElement tooButton = wait.until(ExpectedConditions.elementToBeClickable(topOrderButton));
+            tooButton.click();
+            return this;
+        }
+        //нажатие на кнопку заказа нижнюю
+        public void clickOrderButtonBody() {
+
+        }
+        //метод ожидания загрузки главной страницы
+
+        public MainPage waitForLoadMainPage() {
+
+            WebElement divEl= wait.until(ExpectedConditions.visibilityOfElementLocated(homeHeader)); // Ожидание видимости элемента homeHeader
+
+            return this;
         }
     }
 
