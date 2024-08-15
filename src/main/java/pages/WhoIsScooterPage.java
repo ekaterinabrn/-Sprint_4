@@ -30,9 +30,8 @@ public class WhoIsScooterPage {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
-
     //доступна ли форма для кого самокат
-    // попытка найти поле
+
     public WhoIsScooterPage waitLoad() {
         WebElement divElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//div[starts-with(@class, 'Order_Form')]")));
         return this;
@@ -77,5 +76,10 @@ public class WhoIsScooterPage {
         phoneFieldElement.sendKeys(phone);
         return this;
 
+    }
+    public WhoIsScooterPage clickButtonNext() {
+        WebElement nextButton = wait.until(ExpectedConditions.elementToBeClickable(buttonNext));
+        nextButton.click();
+        return this;
     }
 }
