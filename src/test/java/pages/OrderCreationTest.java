@@ -9,6 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import static org.junit.Assert.assertTrue;
+
 @RunWith(Parameterized.class)
 public class OrderCreationTest {
     private WebDriver driver;
@@ -80,6 +82,7 @@ public class OrderCreationTest {
                 .setColor(this.color)
                 .setComment(this.comment)
                 .clickbuttonCreateOrder();
+        assertTrue(aboutRentPage.orderIsProcessedTextIsDisplayed());
     }
 
     @After

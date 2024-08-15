@@ -99,6 +99,12 @@ public class AboutRentPage {
         this.driver.findElement(this.buttonCreateOrder).click();
         return this;
     }
+    //окно заказ оформлен
+    //метод возвращает истину, если поле Заказ оформлен отображено
+    public boolean orderIsProcessedTextIsDisplayed() {
+
+        return driver.findElement(orderCreateField).isDisplayed();
+    }
 
 
 }
