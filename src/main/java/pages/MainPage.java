@@ -1,0 +1,65 @@
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+    public class MainPage {
+
+        private WebDriver driver;
+        private WebDriverWait wait;
+        private final By homeHeader = By.className("Home_Header__iJKdX");
+        // Локаторы вопросов аккордеона
+        private By question1Locator = By.xpath("//div[@id='accordion__heading-0']");
+        private final By questionsHeader = By.className("Home_FourPart__1uthg");
+        // Локатор кнопки с принятием Cookies
+        private final By acceptCookie = By.id("rcc-confirm-button");
+
+        // Локаторы ответов аккордеона
+        private By answer1Locator = By.xpath("//div[@aria-labelledby='accordion__heading-0']");
+
+        public MainPage(WebDriver driver) {
+            this.driver = driver;
+            this.wait = new WebDriverWait(driver, Duration.ofSeconds(5)); // Увеличенное время ожидания
+        }
+
+        // Метод прокрутки к блоку "Вопросы о важном"
+        public MainPage scrollToQuestions() {
+            ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(questionsHeader));
+            return this;
+        }
+
+        public MainPage acceptCookie() {
+            WebElement cookieButton = wait.until(ExpectedConditions.elementToBeClickable(acceptCookie));
+            cookieButton.click();
+            return this;
+        }
+
+        // Метод для клика по вопросу
+        public MainPage clickQuestion(int questionNumber) {
+            By questionLocator = By.xpath(String.format("//div[@id='accordion__heading-%d']", questionNumber - 1));
+            WebElement question = wait.until(ExpectedConditions.elementToBeClickable(questionLocator));
+            question.click();
+            return this;
+        }
+
+       // Метод для получения текста ответа
+        public String getAnswerText(int questionNumber) {
+            By answerLocator = By.xpath(String.format("//div[@aria-labelledby='accordion__heading-%d']", questionNumber - 1));
+            WebElement answer = wait.until(ExpectedConditions.visibilityOfElementLocated(answerLocator));
+            return answer.getText();
+        }
+
+        // Метод для получения текста вопроса
+        public String getQuestionText(int questionNumber) {
+            By questionLocator = By.xpath(String.format("//div[@id='accordion__heading-%d']", questionNumber - 1));
+            WebElement question = wait.until(ExpectedConditions.visibilityOfElementLocated(questionLocator));
+            return question.getText();
+        }
+    }
+
