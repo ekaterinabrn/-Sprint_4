@@ -25,9 +25,10 @@ public class OrderCreationTest {
     private String howManyDays;
     private String color;
     private String comment;
+    private boolean isHeader;
 
     public OrderCreationTest(
-            String name, String surname, String address, int indexStantion, String phone, String date, String howManyDays, String color, String comment) {
+            String name, String surname, String address, int indexStantion, String phone, String date, String howManyDays, String color, String comment, boolean isHeader) {
         this.name = name;
         this.surname = surname;
         this.address = address;
@@ -42,8 +43,8 @@ public class OrderCreationTest {
     @Parameterized.Parameters
     public static Object[][] testData() {
         return new Object[][]{
-                {"ИмяОдин", "Фамилия", "Адрес 1", 3, "79991111111", "18.08.2024", "сутки", "чёрный жемчуг", "комментарий "},
-                {"ИмяДва", "Фамилиядва", "Адрес 2", 7, "+7888888888", "18.08.2024", "двое суток", "чёрный жемчуг", "комментарий "}
+                {"ИмяОдин", "Фамилия", "Адрес 1", 3, "79991111111", "18.08.2024", "сутки", "чёрный жемчуг", "комментарий ", true},
+                {"ИмяДва", "Фамилиядва", "Адрес 2", 7, "+7888888888", "18.08.2024", "двое суток", "чёрный жемчуг", "комментарий ", false}
         };
     }
 
@@ -63,8 +64,9 @@ public class OrderCreationTest {
     @Test
     public void testCreateOrderWithUpButton() {
 
-        mainPage.waitForLoadMainPage()
-                .clickOrderButtonHeader();
+        mainPage.waitForLoadMainPage();
+               if (isHeader){mainPage.clickOrderButtonHeader();
+               }else {mainPage.clickOrderButtonBody();}
         whoIsScooterPage.waitLoad()
                 .setName(this.name)
                 .setSurname(this.surname)
