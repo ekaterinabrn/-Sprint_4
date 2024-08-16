@@ -14,16 +14,17 @@ import java.time.Duration;
         private WebDriver driver;
         private WebDriverWait wait;
         private final By homeHeader = By.className("Home_Header__iJKdX");
-        // Локаторы вопросов аккордеона
+        // Локаторы вопросов аккордеона пример
         private By question1Locator = By.xpath("//div[@id='accordion__heading-0']");
         private final By questionsHeader = By.className("Home_FourPart__1uthg");
         // Локатор кнопки с принятием Cookies
         private final By acceptCookie = By.id("rcc-confirm-button");
+        //кнопка создания заказа в шапке
         private final By topOrderButton = By.xpath(".//button[@class='Button_Button__ra12g' and text()='Заказать']");
         //локатор нижней кнопки создания заказа
         private final By orderButtonBody = By.xpath(".//button[@class='Button_Button__ra12g Button_UltraBig__UU3Lp']");
 
-        // Локаторы ответов аккордеона
+        // Локаторы ответов аккордеона пример
         private By answer1Locator = By.xpath("//div[@aria-labelledby='accordion__heading-0']");
 
         public MainPage(WebDriver driver) {

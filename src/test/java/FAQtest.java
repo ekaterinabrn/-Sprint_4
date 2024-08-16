@@ -9,9 +9,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import pages.MainPage;
 
 import static org.junit.Assert.assertEquals;
+import static pages.Url.BASE_URL;
 
 
-    @RunWith(Parameterized.class)
+@RunWith(Parameterized.class)
     public class FAQtest {
 
         private WebDriver driver;
@@ -47,7 +48,7 @@ import static org.junit.Assert.assertEquals;
             ChromeOptions options = new ChromeOptions();
             options.addArguments("start-maximized");
             driver = new ChromeDriver(options);
-            driver.get("https://qa-scooter.praktikum-services.ru");
+            driver.get(BASE_URL);
 mainPage= new MainPage(driver);
 mainPage.acceptCookie();
 

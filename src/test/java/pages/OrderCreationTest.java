@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import static org.junit.Assert.assertTrue;
+import static pages.Url.BASE_URL;
 
 @RunWith(Parameterized.class)
 public class OrderCreationTest {
@@ -56,10 +57,10 @@ public class OrderCreationTest {
         options.addArguments("start-maximized");
         ChromeDriver driver;
         driver = new ChromeDriver(options);
-        driver.get("https://qa-scooter.praktikum-services.ru");
-        mainPage= new MainPage(driver);
-        whoIsScooterPage= new WhoIsScooterPage(driver);
-        aboutRentPage=new AboutRentPage(driver);
+        driver.get(BASE_URL);
+        mainPage = new MainPage(driver);
+        whoIsScooterPage = new WhoIsScooterPage(driver);
+        aboutRentPage = new AboutRentPage(driver);
     }
 
 
@@ -67,8 +68,11 @@ public class OrderCreationTest {
     public void testCreateOrderWithUpButton() {
 
         mainPage.waitForLoadMainPage();
-               if (isHeader){mainPage.clickOrderButtonHeader();
-               }else {mainPage.clickOrderButtonBody();}
+        if (isHeader) {
+            mainPage.clickOrderButtonHeader();
+        } else {
+            mainPage.clickOrderButtonBody();
+        }
         whoIsScooterPage.waitLoad()
                 .setName(this.name)
                 .setSurname(this.surname)
@@ -82,14 +86,13 @@ public class OrderCreationTest {
                 .setColor(this.color)
                 .setComment(this.comment)
                 .clickbuttonCreateOrder();
-        assertTrue(aboutRentPage.orderIsProcessedTextIsDisplayed());
+        assertTrue(aboutRentPage.orderIsProcessedTextIsDisplayed()); //окно не появится тест упадет
     }
 
     @After
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+
+        driver.quit();
     }
 }
 
