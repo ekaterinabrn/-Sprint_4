@@ -1,15 +1,13 @@
 import org.junit.After;
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import pages.DriverRule;
 import pages.MainPage;
 
 import static org.junit.Assert.assertEquals;
-import static pages.Url.BASE_URL;
 
 
 @RunWith(Parameterized.class)
@@ -43,20 +41,18 @@ import static pages.Url.BASE_URL;
             };
         }
 
-        @Before
-        public void setUp() {
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("start-maximized");
-            driver = new ChromeDriver(options);
-            driver.get(BASE_URL);
-mainPage= new MainPage(driver);
-mainPage.acceptCookie();
+    @Rule
+    public DriverRule factory = new DriverRule();
 
-        }
 
         @Test
         public void testAccordionAnswers() {
+            WebDriver driver = factory.getDriver();
+            mainPage= new MainPage(driver);
+            mainPage.open();
+            mainPage.acceptCookie();
             mainPage.scrollToQuestions();
+    mainPage.scrollToQuestions();
             mainPage.clickQuestion(questionNumber);
             String actualQuestion = mainPage.getQuestionText(questionNumber);
             String actualAnswer = mainPage.getAnswerText(questionNumber);

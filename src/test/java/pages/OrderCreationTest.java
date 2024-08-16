@@ -1,16 +1,12 @@
 package pages;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import static org.junit.Assert.assertTrue;
-import static pages.Url.BASE_URL;
 
 @RunWith(Parameterized.class)
 public class OrderCreationTest {
@@ -50,23 +46,18 @@ public class OrderCreationTest {
                 {"ИмяДва", "Фамилиядва", "Адрес 2", 7, "+7888888888", "18.08.2024", "двое суток", "чёрный жемчуг", "комментарий ", false}
         };
     }
-
-    @Before
-    public void setUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("start-maximized");
-        ChromeDriver driver;
-        driver = new ChromeDriver(options);
-        driver.get(BASE_URL);
-        mainPage = new MainPage(driver);
-        whoIsScooterPage = new WhoIsScooterPage(driver);
-        aboutRentPage = new AboutRentPage(driver);
-    }
+    @Rule
+    public DriverRule factory = new DriverRule();
 
 
     @Test
     public void testCreateOrderWithUpButton() {
-
+        WebDriver driver = factory.getDriver();
+        try {
+            mainPage = new MainPage(driver);
+            whoIsScooterPage = new WhoIsScooterPage(driver);
+            aboutRentPage = new AboutRentPage(driver);
+            mainPage.open();
         mainPage.waitForLoadMainPage();
         if (isHeader) {
             mainPage.clickOrderButtonHeader();
@@ -87,12 +78,15 @@ public class OrderCreationTest {
                 .setComment(this.comment)
                 .clickbuttonCreateOrder();
         assertTrue(aboutRentPage.orderIsProcessedTextIsDisplayed()); //окно не появится тест упадет
-    }
-
-    @After
-    public void tearDown() {
-
-        driver.quit();
+        } finally {
+            if (driver != null) {
+                try {
+                    driver.close();  // Закрыть текущее окно
+                    driver.quit();   // Завершить работу WebDriver в задании было обязательно закрыть окно
+                } catch (Exception e) {
+                    System.out.println("Ошибка при закрытии браузера: " + e.getMessage());
+                }
+            }
+        }
     }
 }
-

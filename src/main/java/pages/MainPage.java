@@ -31,6 +31,9 @@ import java.time.Duration;
             this.driver = driver;
             this.wait = new WebDriverWait(driver, Duration.ofSeconds(5)); // Увеличенное время ожидания
         }
+        public void open() {
+            driver.get(Url.BASE_URL);
+        }
 
         // Метод прокрутки к блоку "Вопросы о важном"
         public MainPage scrollToQuestions() {
