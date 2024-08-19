@@ -51,9 +51,9 @@ public class OrderCreationTest {
 
 
     @Test
-    public void testCreateOrderWithUpButton() {
+    public void testCreateOrderWithUpButton() throws Exception {
         WebDriver driver = factory.getDriver();
-        try {
+
             mainPage = new MainPage(driver);
             whoIsScooterPage = new WhoIsScooterPage(driver);
             aboutRentPage = new AboutRentPage(driver);
@@ -78,15 +78,7 @@ public class OrderCreationTest {
                 .setComment(this.comment)
                 .clickbuttonCreateOrder();
         assertTrue(aboutRentPage.orderIsProcessedTextIsDisplayed()); //окно не появится тест упадет
-        } finally {
-            if (driver != null) {
-                try {
-                    driver.close();  // Закрыть текущее окно
-                    driver.quit();   // Завершить работу WebDriver в задании было обязательно закрыть окно
-                } catch (Exception e) {
-                    System.out.println("Ошибка при закрытии браузера: " + e.getMessage());
-                }
-            }
+        Thread.sleep(2_000);
+        driver.quit();
         }
-    }
 }

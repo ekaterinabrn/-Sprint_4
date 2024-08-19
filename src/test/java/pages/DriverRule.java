@@ -42,7 +42,7 @@ public class DriverRule extends ExternalResource {
     }
 
     public void startFirefox() {
-        WebDriverManager.firefoxdriver().setup();
+        WebDriverManager.firefoxdriver().driverVersion("0.34.0").setup();
         var opts = new FirefoxOptions()
                 .configureFromEnv();
         driver = new FirefoxDriver(opts);
