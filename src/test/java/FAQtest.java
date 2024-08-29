@@ -1,12 +1,12 @@
+import org.hamcrest.CoreMatchers;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ErrorCollector;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import pages.DriverRule;
 import pages.MainPage;
-
-import static org.junit.Assert.assertEquals;
 
 
 @RunWith(Parameterized.class)
@@ -42,6 +42,8 @@ import static org.junit.Assert.assertEquals;
 
     @Rule
     public DriverRule factory = new DriverRule();
+    @Rule
+    public ErrorCollector collector = new ErrorCollector();
 
 
     @Test
@@ -53,10 +55,13 @@ import static org.junit.Assert.assertEquals;
         mainPage.scrollToQuestions();
         mainPage.scrollToQuestions();
         mainPage.clickQuestion(questionNumber);
+        // Получить текст вопроса и ответа
         String actualQuestion = mainPage.getQuestionText(questionNumber);
         String actualAnswer = mainPage.getAnswerText(questionNumber);
-        assertEquals("Текст вопроса не совпадает!", question, actualQuestion);
-        assertEquals("Текст ответа не совпадает!", expectedAnswer, actualAnswer);
+
+        //  ErrorCollector для сбора ошибок
+        collector.checkThat("Текст вопроса не совпадает!", actualQuestion, CoreMatchers.is(question));
+        collector.checkThat("Текст ответа не совпадает!", actualAnswer, CoreMatchers.is(expectedAnswer));
     }
 
 }
