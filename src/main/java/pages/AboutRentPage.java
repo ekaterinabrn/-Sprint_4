@@ -63,8 +63,8 @@ public class AboutRentPage {
         dropdownField.click();
         // Формирование селектора для выбора нужного срока аренды
         By howManyDaysLocator  = By.xpath(String.format("//div[@class='Dropdown-option' and text()='%s']", howManyDays));
-        WebElement rentalPerid = wait.until(ExpectedConditions.elementToBeClickable(howManyDaysLocator));
-        rentalPerid.click();
+        WebElement rentalPeriod = wait.until(ExpectedConditions.elementToBeClickable(howManyDaysLocator));
+        rentalPeriod.click();
         return this;
     }
 
